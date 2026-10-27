@@ -1,10 +1,13 @@
+import Footer from '../components/Footer';
 import Header from '../components/Header';
+import ImageCarousel from '../components/Slider';
 
 function Home() {
   return (
     <>
       <Header />
-      <h1 className="text-5xl">Home page</h1>;
+      <ImageCarousel />
+      <Footer />
     </>
   );
 }
