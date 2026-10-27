@@ -1,6 +1,6 @@
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import ImageCarousel from '../components/Slider';
+import ImageCarousel from '@/components/ImageCarousel';
 
 function Home() {
   return (
