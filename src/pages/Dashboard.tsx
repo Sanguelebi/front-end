@@ -1,11 +1,7 @@
 function Dashboard() {
   return (
     <>
-      <header>
-        <h1>Dashboard page</h1>;
-      </header>
-
-      <footer></footer>
+      <h1>Dashboard page</h1>;
     </>
   );
 }
