@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
+import { useState } from 'react';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 
 function LoginCard() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {

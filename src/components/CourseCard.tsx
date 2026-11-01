@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react";
+import { Icon } from '@iconify/react';
 
 interface CourseCardProps {
   title: string;
@@ -20,9 +20,7 @@ function CourseCard({ title, instructor, category, image, onClick }: CourseCardP
       </div>
 
       <div className="flex flex-col gap-0.5 px-0.5">
-        <h3 className="text-[#1a1a1a] font-semibold text-sm leading-snug line-clamp-2">
-          {title}
-        </h3>
+        <h3 className="text-[#1a1a1a] font-semibold text-sm leading-snug line-clamp-2">{title}</h3>
 
         <div className="flex items-center gap-1.5 text-primary text-xs font-medium">
           <Icon icon="mdi:account" className="text-primary w-3.5 h-3.5 shrink-0" />
