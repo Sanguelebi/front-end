@@ -1,11 +1,11 @@
 import ImageCarousel from '@/components/ImageCarousel';
 
 function Home() {
-  return (
-    <>
-      <ImageCarousel />
-    </>
-  );
+    return (
+        <>
+            <ImageCarousel />
+        </>
+    );
 }
 
 export default Home;
