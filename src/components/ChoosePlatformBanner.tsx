@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 function ChoosePlatformBanner() {
     return (
         <>
@@ -22,9 +24,9 @@ function ChoosePlatformBanner() {
 
             <div className="justify-center items-center">
                 <div className="flex justify-center items-center">
-                    <img src="/clock.svg" alt="clock" />
+                    <Icon icon="akar-icons:clock" className="text-primary size-64" />
                 </div>
-                <div className="text-center text-4xl text-primary">
+                <div className="text-center mt-[40px] text-4xl text-primary">
                     <p className="">თქვენთვის ასარჩევი საგანი ვერ მოიძებნა... </p>
                 </div>
             </div>
