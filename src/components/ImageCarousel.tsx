@@ -35,9 +35,9 @@ function ImageCarousel() {
     const next = () => setActiveIdx((i) => (i === slides.length - 1 ? 0 : i + 1));
 
     return (
-        <div className="w-full max-w-lg mx-auto">
+        <div className="w-full max-w-[1240px] mx-auto">
             {/* Carousel Viewport */}
-            <div className="relative overflow-hidden rounded-xl h-64 shadow-md bg-gray-900">
+            <div className="relative overflow-hidden rounded-[32px] md:rounded-[48px] h-[240px] sm:h-[340px] md:h-[420px] lg:h-[460px] shadow-xl bg-gray-900">
                 {/* Sliding Track */}
                 <div
                     className="flex h-full transition-transform duration-500 ease-out"
@@ -46,7 +46,7 @@ function ImageCarousel() {
                     {slides.map((slide, index) => (
                         <div
                             key={index}
-                            className="w-full h-full flex-shrink-0 relative flex items-center justify-center text-white text-2xl font-bold"
+                            className="w-full h-full flex-shrink-0 relative flex items-center justify-center"
                         >
                             <img
                                 src={slide.photoURL}
@@ -54,41 +54,35 @@ function ImageCarousel() {
                                 className="absolute inset-0 w-full h-full object-cover"
                             />
 
-                            <div className="absolute inset-0 bg-black/40" />
+                            <div className="absolute inset-0 bg-black/25" />
 
-                            <p className="relative z-10 px-4 text-center drop-shadow-md">
-                                {slide.title}
-                            </p>
+                            {/* Frosted Glass Title Pill */}
+                            <div className="relative z-10 w-[75%] max-w-2xl px-6 md:px-14 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg flex items-center justify-center">
+                                <h3 className="text-white text-lg sm:text-2xl md:text-4xl lg:text-5xl font-bold tracking-wide drop-shadow-md text-center">
+                                    {slide.title}
+                                </h3>
+                            </div>
                         </div>
                     ))}
                 </div>
 
+                {/* Left navigation arrow tab */}
                 <button
                     onClick={prev}
                     aria-label="Previous slide"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition flex items-center justify-center cursor-pointer"
+                    className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 bg-black/35 hover:bg-black/55 text-white/80 hover:text-white w-9 md:w-11 h-16 md:h-20 rounded-xl backdrop-blur-xs transition flex items-center justify-center cursor-pointer"
                 >
-                    <Icon icon="mdi:chevron-left" className="size-6" />
+                    <Icon icon="mdi:chevron-left" className="size-7 md:size-9" />
                 </button>
+
+                {/* Right navigation arrow tab */}
                 <button
                     onClick={next}
                     aria-label="Next slide"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition flex items-center justify-center cursor-pointer"
+                    className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 bg-black/35 hover:bg-black/55 text-white/80 hover:text-white w-9 md:w-11 h-16 md:h-20 rounded-xl backdrop-blur-xs transition flex items-center justify-center cursor-pointer"
                 >
-                    <Icon icon="mdi:chevron-right" className="size-6" />
+                    <Icon icon="mdi:chevron-right" className="size-7 md:size-9" />
                 </button>
-
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                    {slides.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setActiveIdx(index)}
-                            className={`h-2 rounded-full transition-all ${
-                                activeIdx === index ? 'w-6 bg-white' : 'w-2 bg-white/50'
-                            }`}
-                        />
-                    ))}
-                </div>
             </div>
         </div>
     );
