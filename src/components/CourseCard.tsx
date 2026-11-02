@@ -6,11 +6,22 @@ interface CourseCardProps {
     category: string;
     image: string;
     onClick?: () => void;
+    className?: string;
 }
 
-function CourseCard({ title, instructor, category, image, onClick }: CourseCardProps) {
+function CourseCard({
+    title,
+    instructor,
+    category,
+    image,
+    onClick,
+    className = '',
+}: CourseCardProps) {
     return (
-        <div className="flex flex-col gap-2 cursor-pointer group w-full max-w-xs" onClick={onClick}>
+        <div
+            className={`flex flex-col gap-2.5 cursor-pointer group w-full ${className}`}
+            onClick={onClick}
+        >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] w-full">
                 <img
                     src={image}
