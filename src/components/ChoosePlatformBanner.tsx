@@ -19,6 +19,15 @@ function ChoosePlatformBanner() {
           </button>
         </div>
       </div>
+
+      <div className="justify-center items-center">
+        <div className="flex justify-center items-center">
+          <img src="/clock.svg" alt="clock" />
+        </div>
+        <div className="text-center text-4xl text-primary">
+          <p className="">თქვენთვის ასარჩევი საგანი ვერ მოიძებნა... </p>
+        </div>
+      </div>
     </>
   );
 }
