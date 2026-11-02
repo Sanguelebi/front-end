@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-type ButtonVariant = "primary" | "background";
+type ButtonVariant = 'primary' | 'background';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -8,14 +8,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-background",
-  background: "bg-background text-primary",
+  primary: 'bg-primary text-background',
+  background: 'bg-background text-primary',
 };
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "primary",
+  variant = 'primary',
   children,
-  className = "",
+  className = '',
   ...props
 }) => {
   return (
