@@ -53,7 +53,7 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
-                <div className="flex justify-center bg-[#6E2627] p-6">
+                <div className="flex justify-center pt-2 pb-8">
                     <ChooseSubjectButton
                         onClick={() => {
                             console.log('working');
