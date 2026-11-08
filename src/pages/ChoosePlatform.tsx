@@ -54,7 +54,7 @@ function ChoosePlatform() {
                     }
                 />
                 <div className="flex justify-center my-8">
-                    <ChooseSubjectButton onClick={() => setIsModalOpen(true)} />
+                    <ChooseSubjectButton />
                 </div>
             </main>
         </>
