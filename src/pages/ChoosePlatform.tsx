@@ -53,8 +53,12 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
-                <div className="flex justify-center pt-2 py-8">
-                    <ChooseSubjectButton />
+                <div className="flex justify-center bg-[#6E2627] p-6">
+                    <ChooseSubjectButton
+                        onClick={() => {
+                            console.log('working');
+                        }}
+                    />
                 </div>
             </main>
         </>
