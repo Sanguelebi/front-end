@@ -54,7 +54,7 @@ function ChoosePlatform() {
                     }
                 />
                 <div className="py-8">
-                    <div className="w-full max-w-[280px] rounded-2xl border-[3px] border-solid border-background bg-transparent px-6 py-1 text-lg font-normal text-background cursor-pointer hover:opacity-90 active:scale-95 transition-all duration-150">
+                    <div className="mx-auto flex w-full max-w-[400px] justify-center rounded-[20px] border-8 border-solid border-[#4A0E0F] bg-[#6E2627] p-6">
                         <ChooseSubjectButton
                             onClick={() => {
                                 console.log('working');
