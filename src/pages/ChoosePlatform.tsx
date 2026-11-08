@@ -53,7 +53,7 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
-                <div className="flex justify-center rounded-[20px] border-8 border-solid border-[#4A0E0F] bg-[#6E2627] p-6">
+                <div className="mx-auto my-8 flex w-full max-w-[400px] justify-center rounded-[20px] border-8 border-solid border-[#4A0E0F] bg-[#6E2627] p-6">
                     <ChooseSubjectButton
                         onClick={() => {
                             console.log('working');
