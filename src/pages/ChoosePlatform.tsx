@@ -53,7 +53,7 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
-                <div className="flex justify-center my-8">
+                <div className="flex justify-center py-8">
                     <ChooseSubjectButton />
                 </div>
             </main>
