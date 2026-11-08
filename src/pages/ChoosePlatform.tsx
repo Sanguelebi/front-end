@@ -53,9 +53,8 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
-                <div className="bg-primary p-6">
-                    <ChooseSubjectButton onClick={() => alert('მუშაობს')} />
-                    <ChooseSubjectButton hide />
+                <div className="flex justify-center my-8">
+                    <ChooseSubjectButton onClick={() => setIsModalOpen(true)} />
                 </div>
             </main>
         </>

@@ -12,7 +12,7 @@ function ChooseSubjectButton({ hide = false, onClick }: ChooseSubjectButtonProps
         <button
             type="button"
             onClick={onClick}
-            className="w-full py-3 text-lg font-bold text-background border-2 border-solid border-background rounded-2xl cursor-pointer hover:opacity-90 active:scale-95 transition-all duration-150"
+            className="bg-primary text-background font-bold text-lg px-8 py-3 rounded-2xl shadow-lg cursor-pointer hover:opacity-90 active:scale-95 transition-all duration-150"
         >
             დაამატე საგანი!
         </button>
