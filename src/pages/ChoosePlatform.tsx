@@ -54,7 +54,7 @@ function ChoosePlatform() {
                     }
                 />
                 <div className="py-8">
-                    <div className="mx-auto flex w-full max-w-[400px] justify-center rounded-[20px] border-8 border-solid border-[#4A0E0F] bg-[#6E2627] p-6">
+                    <div className="mx-auto flex h-[210px] w-full max-w-[1138px] items-center justify-center rounded-[20px] border-[10px] border-solid border-[#4A0E0F] bg-[#6E2627]">
                         <ChooseSubjectButton
                             onClick={() => {
                                 console.log('working');
