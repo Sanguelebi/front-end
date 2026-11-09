@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ChoosePlatformBanner from '@/components/ChoosePlatformBanner';
 import MainModal from '@/components/MainModal';
+import ChooseSubjectButton from '@/components/ChooseSubjectButton';
+import ChooseSubjectsWrapper from '@/components/ChooseSubjectsWrapper';
 
 function ChoosePlatform() {
     const [isModalOpen, setIsModalOpen] = useState(true);
@@ -15,7 +17,6 @@ function ChoosePlatform() {
         <>
             <main className="bg-background min-h-screen">
                 <ChoosePlatformBanner />
-
                 <div className="flex justify-center my-8">
                     <button
                         onClick={() => setIsModalOpen(true)}
@@ -24,7 +25,6 @@ function ChoosePlatform() {
                         მოდალის გახსნა
                     </button>
                 </div>
-
                 {/* Main Modal */}
                 <MainModal
                     title="აირჩიე საგანი"
@@ -54,6 +54,15 @@ function ChoosePlatform() {
                         </div>
                     }
                 />
+                <div className="py-8">
+                    <ChooseSubjectsWrapper>
+                        <ChooseSubjectButton
+                            onClick={() => {
+                                console.log('working');
+                            }}
+                        />
+                    </ChooseSubjectsWrapper>
+                </div>
             </main>
         </>
     );
