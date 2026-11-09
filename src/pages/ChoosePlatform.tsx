@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ChoosePlatformBanner from '@/components/ChoosePlatformBanner';
 import MainModal from '@/components/MainModal';
 import ChooseSubjectButton from '@/components/ChooseSubjectButton';
+import ChooseSubjectsWrapper from '@/components/ChooseSubjectsWrapper';
 
 function ChoosePlatform() {
     const [isModalOpen, setIsModalOpen] = useState(true);
@@ -54,7 +55,8 @@ function ChoosePlatform() {
                     }
                 />
                 <div className="py-8">
-                    <div className="mx-auto flex h-[74px] w-full max-w-[398px] items-center justify-center rounded-[20px] border-[4px] border-solid border-[#4A0E0F] bg-[#6E2627]">
+                    <div className="mx-auto flex h-[74px] w-full max-w-[398px] items-center justify-center rounded-[20px] border-4 border-solid border-[#4A0E0F] bg-[#6E2627]">
+                        <ChooseSubjectsWrapper>
                         <ChooseSubjectButton
                             onClick={() => {
                                 console.log('working');
