@@ -1,14 +1,30 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { setUser } from '@/store/slices/userSlice';
+import { findMockUser } from '@/services/mockUsers';
 
 function LoginCard() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        const user = findMockUser(email);
+        dispatch(setUser(user));
+
+        if (remember) {
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+
+        navigate('/');
     };
 
     return (
@@ -25,7 +41,7 @@ function LoginCard() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder=""
+                    placeholder="mariammikava@sangu.edu.ge"
                 />
 
                 <Input
