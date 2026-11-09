@@ -1,5 +1,7 @@
 import type { UserState } from '@/store/slices/userSlice';
 
+// Delete this later when connectd to the DB.
+
 export interface MockUser extends UserState {
     password?: string;
 }

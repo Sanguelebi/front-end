@@ -21,7 +21,7 @@ function LoginCard() {
         dispatch(setUser(user));
 
         if (remember) {
-            localStorage.setItem('user', JSON.stringify(user));
+            // TODO: Add logic for rememebering.
         }
 
         navigate('/');
@@ -41,7 +41,7 @@ function LoginCard() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="mariammikava@sangu.edu.ge"
+                    placeholder="აქ ჩაწერე ელფოსტა."
                 />
 
                 <Input
@@ -50,6 +50,7 @@ function LoginCard() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder="აქ ჩაწერე პაროლი."
                 />
 
                 <div className="flex items-center justify-between text-background text-sm">

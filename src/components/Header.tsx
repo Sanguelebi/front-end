@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import type { RootState } from '@/store/store';
-import { clearUser, setUser } from '@/store/slices/userSlice';
+import { clearUser, setUser, type UserState } from '@/store/slices/userSlice';
 import { MOCK_USERS } from '@/services/mockUsers';
 
 function Header() {
@@ -17,13 +17,13 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useSelector((state: RootState) => state.user);
+    const user: UserState = useSelector((state: RootState) => state.user);
 
     const isLoginPage = location.pathname === '/login';
 
     const options: string[] = ['არჩევითი', 'თავისუფალი კრედიტი', 'სავალდებულო'];
 
-    // Role checks
+    // TEMPORARY: Role checks
     const role = (user.role || '').toLowerCase();
     const isCoordinator = role === 'coordinator' || role === 'კოორდინატორი';
     const isProgramHead =
@@ -52,17 +52,16 @@ function Header() {
 
     const handleLogout = () => {
         dispatch(clearUser());
-        localStorage.removeItem('user');
         setIsUserMenuOpen(false);
         navigate('/login');
     };
 
+    // TEMP testing code.
     const handleSwitchRole = (targetRole: string) => {
         const found = MOCK_USERS.find((u) => u.role === targetRole);
         if (found) {
             const { password: _, ...userData } = found;
             dispatch(setUser(userData));
-            localStorage.setItem('user', JSON.stringify(userData));
         }
         setIsUserMenuOpen(false);
     };
@@ -200,7 +199,7 @@ function Header() {
                                 )}
                             </button>
 
-                            {/* User Profile Dropdown Menu */}
+                            {/* TEMP: User Profile Dropdown Menu */}
                             {isUserMenuOpen && (
                                 <div className="absolute right-0 top-full mt-3 w-64 bg-background border-2 border-primary rounded-2xl shadow-2xl p-4 z-30 text-[#1a1a1a]">
                                     {user.id !== -1 ? (
