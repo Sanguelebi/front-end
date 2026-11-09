@@ -55,15 +55,13 @@ function ChoosePlatform() {
                     }
                 />
                 <div className="py-8">
-                    <div className="mx-auto flex h-[74px] w-full max-w-[398px] items-center justify-center rounded-[20px] border-4 border-solid border-[#4A0E0F] bg-[#6E2627]">
-                        <ChooseSubjectsWrapper>
-                            <ChooseSubjectButton
-                                onClick={() => {
-                                    console.log('working');
-                                }}
-                            />
-                        </ChooseSubjectsWrapper>
-                    </div>
+                    <ChooseSubjectsWrapper>
+                        <ChooseSubjectButton
+                            onClick={() => {
+                                console.log('working');
+                            }}
+                        />
+                    </ChooseSubjectsWrapper>
                 </div>
             </main>
         </>
