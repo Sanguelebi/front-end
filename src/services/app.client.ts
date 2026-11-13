@@ -6,7 +6,7 @@ const axios = a.create({
         'Content-Type': 'application/json',
     },
 
-    baseURL: 'http://localhost:8080/api',
+    baseURL: import.meta.env.VITE_BACKEND_API_URL as string,
 });
 
 export default axios;
