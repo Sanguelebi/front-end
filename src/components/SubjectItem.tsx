@@ -1,4 +1,3 @@
-// src/components/SubjectItem.tsx
 import { Icon } from '@iconify/react';
 
 interface SubjectItemProps {
@@ -10,7 +9,7 @@ interface SubjectItemProps {
 
 function SubjectItem({ index, subject, group, onDelete }: SubjectItemProps) {
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex w-full items-center gap-3">
             <span className="w-8 text-center text-xl font-bold text-background">{index}.</span>
 
             <div className="flex-1 rounded-2xl border-[0.1875rem] border-solid border-[#A98B5F] bg-background px-4 py-1 text-center text-primary shadow-[0.25rem_0.25rem_0_#4A0E0F]">
