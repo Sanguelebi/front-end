@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 interface SubjectItemProps {
     index: number;
     subject: string;
-    group: string;
+    group: number;
     onDelete?: () => void;
 }
 
@@ -14,7 +14,7 @@ function SubjectItem({ index, subject, group, onDelete }: SubjectItemProps) {
 
             <div className="flex-1 rounded-2xl border-[0.1875rem] border-solid border-[#A98B5F] bg-background px-4 py-1 text-center text-primary shadow-[0.25rem_0.25rem_0_#4A0E0F]">
                 <p className="text-lg font-bold leading-tight">{subject}</p>
-                <p className="text-sm leading-tight">{group}</p>
+                <p className="text-sm leading-tight">ჯგუფი {group}</p>
             </div>
 
             <button

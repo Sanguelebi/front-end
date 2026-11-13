@@ -60,7 +60,7 @@ function ChoosePlatform() {
                         <SubjectItem
                             index={1}
                             subject="საგანი"
-                            group="ჯგუფი 1"
+                            group={1}
                             onDelete={() => console.log('working')}
                         />
                         <ChooseSubjectButton

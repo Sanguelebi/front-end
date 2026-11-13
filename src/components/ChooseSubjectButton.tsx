@@ -12,7 +12,7 @@ function ChooseSubjectButton({ hide = false, onClick }: ChooseSubjectButtonProps
         <button
             type="button"
             onClick={onClick}
-            className="h-11 w-58 max-w-full rounded-2xl border-[3px] border-solid border-background bg-transparent text-xl font-normal text-background cursor-pointer hover:opacity-90 active:scale-95 transition-all duration-150"
+            className="h-[2.75rem] w-full rounded-2xl border-[3px] border-solid border-background bg-transparent text-xl font-normal text-background cursor-pointer hover:opacity-90 active:scale-95 transition-all duration-150"
         >
             დაამატე საგანი
         </button>
