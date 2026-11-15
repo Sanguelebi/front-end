@@ -3,6 +3,7 @@ import ChoosePlatformBanner from '@/components/ChoosePlatformBanner';
 import MainModal from '@/components/MainModal';
 import ChooseSubjectButton from '@/components/ChooseSubjectButton';
 import ChooseSubjectsWrapper from '@/components/ChooseSubjectsWrapper';
+import SubjectItem from '@/components/SubjectItem';
 
 function ChoosePlatform() {
     const [isModalOpen, setIsModalOpen] = useState(true);
@@ -56,6 +57,12 @@ function ChoosePlatform() {
                 />
                 <div className="py-8">
                     <ChooseSubjectsWrapper>
+                        <SubjectItem
+                            index={1}
+                            subject="საგანი"
+                            group={1}
+                            onDelete={() => console.log('working')}
+                        />
                         <ChooseSubjectButton
                             onClick={() => {
                                 console.log('working');
