@@ -1,13 +1,12 @@
-import a from "axios";
-
+import a from 'axios';
 
 const axios = a.create({
     withCredentials: true,
     headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
     },
 
-    baseURL:"http://localhost:8080/api"
+    baseURL: import.meta.env.VITE_BACKEND_API_URL as string,
 });
 
 export default axios;
