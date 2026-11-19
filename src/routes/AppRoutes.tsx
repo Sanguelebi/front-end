@@ -39,6 +39,14 @@ export const router = createBrowserRouter([
                 ),
             },
             {
+                path: '/choose',
+                element: (
+                    <ProtectedRoute allowedRoles={['student']}>
+                        <ChoosePlatform />
+                    </ProtectedRoute>
+                ),
+            },
+            {
                 path: '/requests',
                 element: (
                     <ProtectedRoute allowedRoles={['coordinator']}>
