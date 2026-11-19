@@ -1,30 +1,51 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { setUser } from '@/store/slices/userSlice';
-import { findMockUser } from '@/services/mockUsers';
+import { login } from '@/services/authService';
 
 function LoginCard() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
+        setIsSubmitting(true);
 
-        const user = findMockUser(email);
-        dispatch(setUser(user));
+        try {
+            const user = await login({ email: email.trim(), password });
+            dispatch(setUser(user));
 
-        if (remember) {
-            localStorage.setItem('user', JSON.stringify(user));
+            const serialized = JSON.stringify(user);
+            if (remember) {
+                localStorage.setItem('user', serialized);
+                sessionStorage.removeItem('user');
+            } else {
+                sessionStorage.setItem('user', serialized);
+                localStorage.removeItem('user');
+            }
+
+            navigate('/');
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                const apiError = err.response?.data?.error as string | undefined;
+                setError(apiError || 'ავტორიზაცია ვერ მოხერხდა. შეამოწმეთ მონაცემები.');
+            } else {
+                setError('ავტორიზაცია ვერ მოხერხდა.');
+            }
+        } finally {
+            setIsSubmitting(false);
         }
-
-        navigate('/');
     };
 
     return (
@@ -41,7 +62,8 @@ function LoginCard() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="mariammikava@sangu.edu.ge"
+                    placeholder="g.beridze@university.edu"
+                    required
                 />
 
                 <Input
@@ -50,7 +72,14 @@ function LoginCard() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
+
+                {error && (
+                    <div className="bg-red-500/20 border border-red-300/60 text-white text-sm rounded-xl px-3.5 py-2 text-center">
+                        {error}
+                    </div>
+                )}
 
                 <div className="flex items-center justify-between text-background text-sm">
                     <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -67,8 +96,13 @@ function LoginCard() {
                     </a>
                 </div>
 
-                <Button type="submit" variant="background" className="w-fit mx-auto mt-2">
-                    Log in
+                <Button
+                    type="submit"
+                    variant="background"
+                    disabled={isSubmitting}
+                    className="w-fit mx-auto mt-2 disabled:opacity-60"
+                >
+                    {isSubmitting ? 'Logging in...' : 'Log in'}
                 </Button>
             </form>
         </div>

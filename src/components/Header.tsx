@@ -1,10 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import type { RootState } from '@/store/store';
-import { clearUser, setUser } from '@/store/slices/userSlice';
-import { MOCK_USERS } from '@/services/mockUsers';
+import { clearUser } from '@/store/slices/userSlice';
+import { logout } from '@/services/authService';
+import type { SubjectType } from '@/models/api';
+
+const CATEGORY_OPTIONS: { label: string; value: '' | SubjectType }[] = [
+    { label: 'ყველა საგანი', value: '' },
+    { label: 'პროფესიული', value: 'professional' },
+    { label: 'თავისუფალი კრედიტი', value: 'free' },
+];
 
 function Header() {
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -15,19 +22,24 @@ function Header() {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
 
     const user = useSelector((state: RootState) => state.user);
 
     const isLoginPage = location.pathname === '/login';
-
-    const options: string[] = ['არჩევითი', 'თავისუფალი კრედიტი', 'სავალდებულო'];
+    const activeCategory = (searchParams.get('category') || '') as '' | SubjectType;
+    const activeCategoryLabel =
+        CATEGORY_OPTIONS.find((opt) => opt.value === activeCategory)?.label ?? 'კატეგორიები';
 
     // Role checks
     const role = (user.role || '').toLowerCase();
     const isCoordinator = role === 'coordinator' || role === 'კოორდინატორი';
     const isProgramHead =
-        role === 'program_head' || role === 'program_lead' || role === 'პროგრამის ხელმძღვანელი';
+        role === 'manager' ||
+        role === 'program_head' ||
+        role === 'program_lead' ||
+        role === 'პროგრამის ხელმძღვანელი';
     const isAdmin = role === 'admin' || role === 'ადმინი';
     // Default to student if role is student or empty/guest
     const isStudent =
@@ -50,21 +62,16 @@ function Header() {
         };
     }, []);
 
-    const handleLogout = () => {
-        dispatch(clearUser());
-        localStorage.removeItem('user');
-        setIsUserMenuOpen(false);
-        navigate('/login');
-    };
-
-    const handleSwitchRole = (targetRole: string) => {
-        const found = MOCK_USERS.find((u) => u.role === targetRole);
-        if (found) {
-            const { password: _, ...userData } = found;
-            dispatch(setUser(userData));
-            localStorage.setItem('user', JSON.stringify(userData));
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch {
+            // Clear local session even if server request fails
+        } finally {
+            dispatch(clearUser());
+            setIsUserMenuOpen(false);
+            navigate('/login');
         }
-        setIsUserMenuOpen(false);
     };
 
     return (
@@ -105,7 +112,7 @@ function Header() {
                                         className="px-4 py-2 flex items-center justify-between gap-4 cursor-pointer hover:opacity-90"
                                     >
                                         <span className="text-background text-base lg:text-lg">
-                                            კატეგორიები
+                                            {activeCategory ? activeCategoryLabel : 'კატეგორიები'}
                                         </span>
                                         <Icon
                                             icon={
@@ -118,15 +125,31 @@ function Header() {
                                     </button>
 
                                     {isDropdownOpen && (
-                                        <div className="absolute top-full left-0 mt-2 w-48 border-background border-2 rounded-xl text-white bg-primary/95 shadow-xl z-20 overflow-hidden">
-                                            {options.map((option) => (
-                                                <div
-                                                    key={option}
-                                                    className="px-4 py-2.5 hover:bg-white/10 hover:underline cursor-pointer transition-colors"
-                                                >
-                                                    {option}
-                                                </div>
-                                            ))}
+                                        <div className="absolute top-full left-0 mt-2 w-52 border-background border-2 rounded-xl text-white bg-primary/95 shadow-xl z-20 overflow-hidden">
+                                            {CATEGORY_OPTIONS.map((option) => {
+                                                const isSelected = activeCategory === option.value;
+                                                return (
+                                                    <button
+                                                        type="button"
+                                                        key={option.label}
+                                                        onClick={() => {
+                                                            setIsDropdownOpen(false);
+                                                            navigate(
+                                                                option.value
+                                                                    ? `/?category=${option.value}`
+                                                                    : '/'
+                                                            );
+                                                        }}
+                                                        className={`w-full text-left px-4 py-2.5 hover:bg-white/10 cursor-pointer transition-colors ${
+                                                            isSelected
+                                                                ? 'bg-white/20 font-bold underline'
+                                                                : ''
+                                                        }`}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                );
+                                            })}
                                         </div>
                                     )}
                                 </div>
@@ -142,12 +165,28 @@ function Header() {
 
                         {/* 2. კოორდინატორი (Coordinator) - Figma Design 2 */}
                         {isCoordinator && (
-                            <Link
-                                to="/requests"
-                                className="text-background text-base lg:text-lg hover:underline cursor-pointer font-medium"
-                            >
-                                მოთხოვნები
-                            </Link>
+                            <div className="flex items-center gap-6 lg:gap-10">
+                                <Link
+                                    to="/"
+                                    className={`text-background text-base lg:text-lg cursor-pointer ${
+                                        location.pathname === '/'
+                                            ? 'underline underline-offset-8 font-bold'
+                                            : 'hover:underline font-medium'
+                                    }`}
+                                >
+                                    საგნები
+                                </Link>
+                                <Link
+                                    to="/requests"
+                                    className={`text-background text-base lg:text-lg cursor-pointer ${
+                                        location.pathname === '/requests'
+                                            ? 'underline underline-offset-8 font-bold'
+                                            : 'hover:underline font-medium'
+                                    }`}
+                                >
+                                    მოთხოვნები
+                                </Link>
+                            </div>
                         )}
 
                         {/* 3. პროგრამის ხელმძღვანელი (Program Head) - Figma Design 3 */}
@@ -220,59 +259,6 @@ function Header() {
                                                         სტატუსი: {user.student_status}
                                                     </p>
                                                 )}
-                                            </div>
-
-                                            {/* Role Switcher (for testing/demo) */}
-                                            <div className="py-2.5 border-b border-primary/20">
-                                                <p className="text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">
-                                                    როლის შეცვლა (ტესტი):
-                                                </p>
-                                                <div className="grid grid-cols-2 gap-1.5 text-xs">
-                                                    <button
-                                                        onClick={() => handleSwitchRole('student')}
-                                                        className={`px-2 py-1 rounded cursor-pointer transition ${
-                                                            isStudent
-                                                                ? 'bg-primary text-white font-bold'
-                                                                : 'bg-primary/10 hover:bg-primary/20 text-primary'
-                                                        }`}
-                                                    >
-                                                        სტუდენტი
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            handleSwitchRole('coordinator')
-                                                        }
-                                                        className={`px-2 py-1 rounded cursor-pointer transition ${
-                                                            isCoordinator
-                                                                ? 'bg-primary text-white font-bold'
-                                                                : 'bg-primary/10 hover:bg-primary/20 text-primary'
-                                                        }`}
-                                                    >
-                                                        კოორდინატორი
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            handleSwitchRole('program_head')
-                                                        }
-                                                        className={`px-2 py-1 rounded cursor-pointer transition ${
-                                                            isProgramHead
-                                                                ? 'bg-primary text-white font-bold'
-                                                                : 'bg-primary/10 hover:bg-primary/20 text-primary'
-                                                        }`}
-                                                    >
-                                                        ხელმძღვანელი
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleSwitchRole('admin')}
-                                                        className={`px-2 py-1 rounded cursor-pointer transition ${
-                                                            isAdmin
-                                                                ? 'bg-primary text-white font-bold'
-                                                                : 'bg-primary/10 hover:bg-primary/20 text-primary'
-                                                        }`}
-                                                    >
-                                                        ადმინი
-                                                    </button>
-                                                </div>
                                             </div>
 
                                             <button
