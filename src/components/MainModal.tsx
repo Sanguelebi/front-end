@@ -48,7 +48,9 @@ function MainModal({ title, child, children, isOpen = true, onClose }: MainModal
                         {title}
                     </h2>
 
-                    <div className="flex flex-col gap-4">{child ?? children}</div>
+                    <div className="flex flex-col gap-4 max-h-[65vh] overflow-y-auto pr-1">
+                        {child ?? children}
+                    </div>
                 </div>
             </div>
         </div>
